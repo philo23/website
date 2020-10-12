@@ -104,9 +104,9 @@ a:hover {
     padding-bottom: env(safe-area-inset-bottom);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 48rem) {
     .screen {
-        grid-template-columns: auto 768px auto;
+        grid-template-columns: auto 46rem auto;
         min-height: 100vh;
     }
     .bio {
