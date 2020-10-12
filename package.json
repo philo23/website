@@ -2,7 +2,7 @@
   "name": "personal",
   "version": "1.0.0",
   "private": true,
-  "main": "index.html",
+  "main": "src/index.html",
   "dependencies": {},
   "devDependencies": {
     "parcel": "^2.0.0-beta.1"
