@@ -122,6 +122,16 @@ a:hover {
         margin-bottom: 0;
     }
 }
+@media screen and (min-width: 62rem) {
+    .screen {
+        grid-template-columns: auto 60rem auto;
+    }
+}
+@media screen and (min-width: 75rem) {
+    .screen {
+        grid-template-columns: auto 73rem auto;
+    }
+}
 
 @media (prefers-color-scheme: dark) {
     :root {
