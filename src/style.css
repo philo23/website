@@ -85,6 +85,7 @@ a:hover {
     text-align: center;
     background-color: var(--background-alt-color);
     overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 @media screen and (min-width: 768px) {
