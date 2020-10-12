@@ -4,8 +4,8 @@
     --background-color: #F0F0F0;
     --background-alt-color: #DDD;
     --text-color: #000;
-    --tint-color: rgb(45, 0, 247);
-    --tint-compliment-color: rgba(45, 0, 247, 0.2);
+    --tint-color: #2d00f7;
+    --tint-compliment-color: #c9c0f2;
 }
 * {
     box-sizing: border-box;
@@ -105,6 +105,6 @@ a:hover {
         --background-alt-color: #222;
         --text-color: #FFF;
         --tint-color: #00b4d8;
-        --tint-compliment-color: #00b4d833;
+        --tint-compliment-color: #003d4a;
     }
 }
