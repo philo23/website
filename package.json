@@ -2,10 +2,9 @@
   "name": "personal",
   "version": "1.0.0",
   "private": true,
-  "main": "src/index.html",
   "dependencies": {},
   "devDependencies": {
-    "parcel": "^2.0.0-nightly.420"
+    "parcel": "^2.0.0-nightly.424"
   },
   "scripts": {
     "start": "parcel serve ./src/index.html",
