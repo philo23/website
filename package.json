@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "parcel": "^2.0.0-nightly.439"
+    "parcel": "^2.0.0-nightly.439",
+    "posthtml-include": "^1.6.0"
   },
   "engines": {
     "node": "14.x"
   },
   "scripts": {
-    "start": "parcel serve './src/**/*.html'",
-    "build": "parcel build './src/**/*.html'"
+    "start": "parcel serve ./src/index.html ./src/extensions/index.html",
+    "build": "parcel build ./src/index.html ./src/extensions/index.html"
   },
   "author": {
     "name": "Philip Pryce",
