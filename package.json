@@ -6,6 +6,9 @@
   "devDependencies": {
     "parcel": "^2.0.0-nightly.439"
   },
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "parcel serve './src/**/*.html'",
     "build": "parcel build './src/**/*.html'"
