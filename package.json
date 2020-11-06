@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "parcel": "^2.0.0-nightly.424"
+    "parcel": "^2.0.0-nightly.439"
   },
   "scripts": {
     "start": "parcel serve ./src/index.html",
