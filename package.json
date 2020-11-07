@@ -5,6 +5,7 @@
   "dependencies": {},
   "devDependencies": {
     "parcel": "^2.0.0-nightly.439",
+    "posthtml-expressions": "^1.6.0",
     "posthtml-include": "^1.6.0"
   },
   "engines": {

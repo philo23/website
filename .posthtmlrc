@@ -1,5 +1,6 @@
 {
   "plugins": {
-    "posthtml-include": {}
+    "posthtml-include": {},
+    "posthtml-expressions": {}
   }
 }
