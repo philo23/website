@@ -12,8 +12,8 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "parcel serve ./src/index.html ./src/extensions/index.html",
-    "build": "parcel build ./src/index.html ./src/extensions/index.html"
+    "start": "parcel serve ./src/index.html",
+    "build": "parcel build ./src/index.html"
   },
   "author": {
     "name": "Philip Pryce",
