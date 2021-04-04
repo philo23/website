@@ -2,8 +2,6 @@
   "plugins": {
     "posthtml-expressions": {},
     "posthtml-include": {},
-    "posthtml-inline-svg": {
-        "cwd": "src"
-    }
+    "posthtml-inline-svg": {}
   }
 }
