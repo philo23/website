@@ -32,6 +32,9 @@ a:visited {
 a:hover {
     color: var(--tint-color);
 }
+p {
+    line-height: 1.5;
+}
 .screen {
     flex: 1;
     display: grid;
@@ -80,7 +83,8 @@ a:hover {
     margin: 1rem 0;
     padding: 0;
 }
-.links hr {
+.links hr,
+.rule {
     margin: 2rem auto;
     max-width: 10rem;
     opacity: 0.8;
@@ -92,7 +96,7 @@ a:hover {
     display: inline-flex;
     align-items: center;
     padding: 0.5rem 1rem;
-    border-radius: 2rem;
+    border-radius: 3rem;
     transition-duration: 200ms;
     transition-timing-function: ease-in-out;
     transition-property: color, background-color;
@@ -111,6 +115,45 @@ a:hover {
 }
 .button:hover .symbol {
     opacity: 1;
+}
+.extensions {
+    max-width: 50rem;
+    margin: 0 auto;
+}
+.extensions h1 {
+    font-size: 3rem;
+    text-align: center;
+}
+.extension {
+    margin-bottom: 2rem;
+}
+.extension .extension__name {
+    font-size: 2rem;
+    text-align: center;
+}
+.extension .extension__screenshots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.extension .extension__screenshots a:hover {
+    background-color: var(--tint-compliment-color);
+}
+.extension .extension__screenshots a img {
+    display: block;
+}
+.extension .extension__links {
+    text-align: center;
+}
+.label {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: var(--background-alt-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
 }
 .message {
     display: flex;
