@@ -3,10 +3,9 @@
 :root {
     --background-color: #F0F0F0;
     --background-alt-color: #DDD;
-    --background-link-hover-color: #FFF;
     --text-color: #000;
-    --tint-color: #2d00f7;
-    --tint-compliment-color: #c9c0f2;
+    --tint-color: #350ce9;
+    --tint-compliment-color: #c3b6fb;
 }
 * {
     box-sizing: border-box;
@@ -28,13 +27,10 @@ body {
 a:link,
 a:visited {
     color: inherit;
-    text-decoration: none;
+    text-decoration: underline var(--tint-compliment-color);
 }
 a:hover {
     color: var(--tint-color);
-    text-decoration: underline var(--tint-compliment-color);
-    text-decoration-thickness: 5px;
-    text-decoration-skip-ink: none;
 }
 .screen {
     flex: 1;
@@ -61,10 +57,9 @@ a:hover {
     text-align: center;
 }
 .photo {
-    width: 200px;
-    height: 200px;
-    border-radius: 100px;
-    border: 5px solid currentColor;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 8rem;
     margin: 1rem 0 0;
 }
 .name {
@@ -85,30 +80,6 @@ a:hover {
     margin: 1rem 0;
     padding: 0;
 }
-.links ul li a {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    transition-duration: 200ms;
-    transition-timing-function: ease-in-out;
-    transition-property: color, background-color, box-shadow;
-}
-.links ul li a:hover {
-    background-color: var(--background-link-hover-color);
-    box-shadow: rgba(0, 0, 0, 0.1) 0 0.2rem 2rem, rgba(0, 0, 0, 0.2) 0 0.2rem 0.5rem;
-}
-.links ul li a .symbol {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    margin-right: .5rem;
-    overflow: hidden;
-    opacity: 0.8;
-}
-.links ul li a:hover .symbol {
-    opacity: 1;
-}
 .links hr {
     margin: 2rem auto;
     max-width: 10rem;
@@ -116,6 +87,46 @@ a:hover {
     border-color: #CCC;
     border-style: solid;
     border-width: 1px 0 0 0;
+}
+.button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+    transition-property: color, background-color;
+}
+.button:hover {
+    background-color: var(--tint-color);
+    color: #FFF;
+}
+.button .symbol {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    margin-right: .5rem;
+    overflow: hidden;
+    opacity: 0.8;
+}
+.button:hover .symbol {
+    opacity: 1;
+}
+.message {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+}
+.message .message__title {
+    font-size: 3rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+}
+.message .message__link {
+    margin-top: 2rem;
+    font-size: 1.2rem;
 }
 .footer {
     text-align: center;
@@ -157,9 +168,6 @@ a:hover {
     :root {
         --background-color: #000;
         --background-alt-color: #222;
-        --background-link-hover-color: rgba(255, 255, 255, 0.1);
         --text-color: #FFF;
-        --tint-color: #00b4d8;
-        --tint-compliment-color: #003d4a;
     }
 }
