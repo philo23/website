@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {Image} from "astro:assets"
+import { Section } from "../components/Section";
+import { SocialLink } from "../components/SocialLink";
+import { faGithub, faSpotify } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import me from "../assets/me.jpg";
+---
+<Layout title="Philip Pryce">
+  <Section>
+    <div class="flex flex-col gap-4 my-10 min-h-full">
+      <div class="text-center">
+        <Image
+          src={me}
+          alt=""
+          width={216}
+          height={216}
+          class="inline-block bg-white rounded-full size-40 md:size-54 max-w-none aspect-square shadow-2xl"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <h1 class="text-5xl font-bold text-center my-6">Philip Pryce</h1>
+        <p class="text-center text-lg my-4">
+          PHP, JavaScript, CSS, HTML
+        </p>
+      </div>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-wrap justify-center gap-2">
+          <SocialLink href="https://www.github.com/philo23" target="_blank" icon={faGithub} iconClassName="text-[#333]" label="GitHub" />
+          <SocialLink href="https://open.spotify.com/user/philo23" target="_blank" icon={faSpotify} iconClassName="text-[#1db954]" label="Spotify" />
+          <SocialLink href="mailto:hi@philippryce.dev" icon={faEnvelope} iconClassName="text-blue-500" label="Contact" />
+        </div>
+      </div>
+    </div>
+  </Section>
+</Layout>

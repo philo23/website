@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {Image} from "astro:assets";
+import { Section } from "../components/Section";
+import { Link } from "../components/Link";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faArrowUpRightFromSquare, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import screenshotNotification from "../assets/extensions/2prowl-notification.png"
+import screenshotSafari from "../assets/extensions/2prowl-safari.png"
+---
+<Layout title="Extensions - Philip Pryce">
+  <Section>
+    <h1 class="text-5xl font-bold text-center my-8">
+      Extensions
+    </h1>
+
+    <div class="bg-white rounded-2xl shadow-xl mx-2 p-8 flex flex-col md:flex-row gap-4">
+      <div class="flex-1">
+        <h2 class="text-4xl font-bold serif mb-4">2Prowl</h2>
+        <p class="my-4">
+          Quickly send a webpage to your iPhone, iPod or iPad for viewing, using Prowl
+          (iTunes App Store) to push a notification to your iOS device. Swiftly move
+          from your desktop or laptop to your mobile device without having to tap out
+          those huge URLs on the touch screen keyboard ever again. Now with automatic
+          redirects! (Prowl 1.2+ required)
+        </p>
+        <div class="flex flex-wrap gap-x-3 gap-y-1">
+          <Link href="https://github.com/philo23/2prowl/releases/download/v2.9/2Prowl.safariextz" target="_blank" rel="noopener">
+            <FontAwesomeIcon icon={faDownload} className="mr-1" />
+            Download
+          </Link>
+          <Link href="https://github.com/philo23/2prowl" target="_blank" rel="noopener">
+            <FontAwesomeIcon icon={faGithub} className="mr-1" />
+            Source
+          </Link>
+          <Link href="https://www.prowlapp.com" target="_blank" rel="noopener">
+            Prowl Website
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" className="ml-1" />
+          </Link>
+          <Link href="https://apps.apple.com/us/app/prowl-easy-push-notifications/id320876271" target="_blank" rel="noopener">
+            Prowl Application
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} size="xs" className="ml-1" />
+          </Link>
+        </div>
+        <p class="bg-amber-100 text-amber-800 py-2 px-4 mt-4 rounded-lg text-sm">
+          <strong>Heads up!</strong>
+          This extension no longer works with modern versions of Safari and
+          I have no plans to update the extension, but I&#39;m keeping this page
+          (and the downloads!) around as a thank you to everyone who&#39;s emailed me
+          to say it was useful over the years. I&#39;ve also put the full source code
+          of this extension on GitHub.
+        </p>
+      </div>
+      <div class="flex-1 p-2">
+        <div class="flex flex-wrap justify-center gap-4">
+          <Image
+            src={screenshotSafari}
+            alt="A screenshot of Safari on the BBC news with the 2Prowl extension installed"
+            class="w-auto h-64 object-contain"
+            width={300}
+            height={300}
+            loading="eager"
+          />
+          <Image
+            src={screenshotNotification}
+            alt="A screenshot of the Prowl notification received on an iPhone after sending the page via 2Prowl"
+            class="w-auto h-64 object-contain"
+            width={300}
+            height={300}
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </Section>
+</Layout>

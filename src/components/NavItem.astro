@@ -1,0 +1,15 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href} = Astro.props;
+const { pathname } = Astro.url;
+
+const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+---
+<a href={href} class:list={["inline-flex items-center font-bold hover:underline decoration-2 decoration-blue-400 rounded px-2 py-0.5",
+  isActive ? "bg-blue-500 text-white" : "hover:bg-slate-100"
+]}>
+  <slot />
+</a>

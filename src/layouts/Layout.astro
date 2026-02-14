@@ -1,0 +1,66 @@
+---
+import { config } from "@fortawesome/fontawesome-svg-core";
+config.autoAddCss = false;
+
+import "../styles/global.css";
+import "@fortawesome/fontawesome-svg-core/styles"
+
+import {ClientRouter} from "astro:transitions";
+import {Image, Font} from "astro:assets";
+import {SPOTIFY_ACTIVITY_STREAM} from 'astro:env/client';
+import NavItem from "../components/NavItem.astro";
+import { NowPlaying } from "../components/NowPlaying";
+import me from "../assets/me.jpg";
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en" transition:name="root" transition:animate="none">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="generator" content={Astro.generator}>
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Font cssVariable="--font-custom" preload />
+    <ClientRouter />
+  </head>
+  <body class="min-h-screen flex flex-col bg-slate-100">
+    <header class="bg-white">
+      <div class="container mx-auto px-2 h-12 flex items-center gap-2">
+        <Image
+          src={me}
+          alt=""
+          width={64}
+          height={64}
+          class="inline-block rounded-full border-4 bg-white border-white size-10 max-w-none aspect-square shadow-2xl -mr-2"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <NavItem href="/">Philip Pryce</NavItem>
+
+        <nav class="flex gap-4 ml-auto">
+          <NavItem href="/extensions/">Extensions</NavItem>
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1 min-h-full" transition:animate="fade">
+      <slot />
+    </main>
+
+    {SPOTIFY_ACTIVITY_STREAM && (
+      <NowPlaying client:idle transition:persist="now-playing" activityStreamUrl={SPOTIFY_ACTIVITY_STREAM} />
+    )}
+
+    <footer class="text-center bg-white text-slate-500 text-sm">
+      <p class="py-4">&copy; Copyright 2026</p>
+    </footer>
+  </body>
+</html>
+

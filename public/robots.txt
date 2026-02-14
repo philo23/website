@@ -1,0 +1,6 @@
+# Beep boop, hello fellow robots!
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.philippryce.dev/sitemap-index.xml

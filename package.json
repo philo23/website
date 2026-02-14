@@ -1,28 +1,27 @@
 {
-  "name": "personal",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {},
-  "devDependencies": {
-    "parcel": "^2.0.0-beta.2",
-    "posthtml-expressions": "^1.7.1",
-    "posthtml-include": "^1.7.0",
-    "posthtml-inline-svg": "^0.2.0"
-  },
-  "engines": {
-    "node": "14.x"
-  },
+  "name": "personal-website3",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "start": "parcel serve ./src/index.html ./src/extensions.html ./src/404.html",
-    "build": "parcel build ./src/index.html ./src/extensions.html ./src/404.html"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "author": {
-    "name": "Philip Pryce",
-    "email": "hi@philippryce.dev",
-    "url": "https://philippryce.dev"
-  },
-  "license": "ISC",
-  "browserslist": [
-    "defaults"
-  ]
+  "dependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.0",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.1",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^5.16.7",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-extract-colors": "^1.5.1",
+    "tailwindcss": "^4.1.18"
+  }
 }
