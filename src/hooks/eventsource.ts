@@ -1,14 +1,14 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useEventSource<Data extends object>(
-  url: string|URL,
+  url: string | URL,
   initialData: Data,
   options?: EventSourceInit,
 ) {
   const [readyState, setReadyState] = useState<number>(0);
-  const [error, setError] = useState<Event|null>(null);
+  const [error, setError] = useState<Event | null>(null);
   const [data, setData] = useState<Data>(initialData);
-  const eventSource = useRef<EventSource|null>(null);
+  const eventSource = useRef<EventSource | null>(null);
 
   const readyStateChange = useCallback(() => {
     setReadyState(eventSource.current?.readyState ?? 0);
@@ -17,7 +17,7 @@ export function useEventSource<Data extends object>(
   const addListener = useCallback(
     <EventName extends Extract<keyof Data, string>>(
       eventName: EventName,
-      handler?: (data: Data[EventName]) => void
+      handler?: (data: Data[EventName]) => void,
     ) => {
       const listener = (event: MessageEvent) => {
         const data = JSON.parse(event.data) as Data[EventName];
@@ -34,9 +34,9 @@ export function useEventSource<Data extends object>(
 
       return () => {
         eventSource.current?.removeEventListener(eventName, listener);
-      }
+      };
     },
-    []
+    [],
   );
 
   useEffect(() => {

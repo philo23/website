@@ -1,6 +1,9 @@
-import React from "react";
+import React from 'react';
 
-export function Button({ children, ...props }: React.HTMLProps<HTMLAnchorElement>) {
+export function Button({
+  children,
+  ...props
+}: React.HTMLProps<HTMLAnchorElement>) {
   return (
     <a
       {...props}

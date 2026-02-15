@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, {Fragment, useEffect, useMemo} from "react";
-import {useEventSource} from "../hooks/eventsource";
-import {useExtractColors} from "react-extract-colors";
+import React, { Fragment, useEffect, useMemo } from 'react';
+import { useEventSource } from '../hooks/eventsource';
+import { useExtractColors } from 'react-extract-colors';
 
 function ProgressBar({ progress }: { progress: number }) {
   return (
     <div className="flex-1 bg-current/30 h-1 rounded-full shadow-inner">
       <div
         className="bg-current/70 h-full rounded-full flex justify-end items-center"
-        style={{width: Math.round(progress * 10000) / 100 + '%'}}
+        style={{ width: Math.round(progress * 10000) / 100 + '%' }}
       >
         <div className="bg-current size-3 shrink-0 translate-x-1/2 rounded-full shadow"></div>
       </div>
@@ -22,7 +22,7 @@ interface SpotifyLinkProps {
   id: string;
   children: React.ReactNode;
 }
-function SpotifyLink({type, id, children}: SpotifyLinkProps) {
+function SpotifyLink({ type, id, children }: SpotifyLinkProps) {
   return (
     <a
       href={`https://open.spotify.com/${type}/${id}`}
@@ -58,13 +58,13 @@ interface Album {
 }
 
 interface Track {
-  id: string,
-  name: string,
-  duration_ms: number,
-  track_number: number,
-  explicit: boolean,
-  artists: Artist[],
-  album: Album,
+  id: string;
+  name: string;
+  duration_ms: number;
+  track_number: number;
+  explicit: boolean;
+  artists: Artist[];
+  album: Album;
 }
 
 function calculateLuminance(color: string) {
@@ -75,15 +75,19 @@ function calculateLuminance(color: string) {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
-export function NowPlaying({ activityStreamUrl }: { activityStreamUrl: string }) {
+export function NowPlaying({
+  activityStreamUrl,
+}: {
+  activityStreamUrl: string;
+}) {
   const {
     readyState,
     error,
     addListener,
-    data: { track, progress }
+    data: { track, progress },
   } = useEventSource(activityStreamUrl, {
-    track: null as Track|null,
-    progress: 0 as number|null,
+    track: null as Track | null,
+    progress: 0 as number | null,
   });
 
   useEffect(() => addListener('track'), [addListener]);
@@ -91,15 +95,15 @@ export function NowPlaying({ activityStreamUrl }: { activityStreamUrl: string })
 
   const albumArt = track?.album.images[0].url ?? '';
 
-  const {dominantColor, darkerColor} = useExtractColors(albumArt, {
+  const { dominantColor, darkerColor } = useExtractColors(albumArt, {
     format: 'hex',
     maxSize: 64,
     sortBy: 'vibrance',
   });
 
   const luminance = useMemo(
-    () => dominantColor ? calculateLuminance(dominantColor) : 0,
-    [dominantColor]
+    () => (dominantColor ? calculateLuminance(dominantColor) : 0),
+    [dominantColor],
   );
 
   if (readyState != 1 || error) {
@@ -113,15 +117,16 @@ export function NowPlaying({ activityStreamUrl }: { activityStreamUrl: string })
   const linearGradient = dominantColor
     ? `linear-gradient(to bottom, ${dominantColor}, ${darkerColor})`
     : undefined;
-  const textColor = luminance > 0.5
-    ? 'text-black'
-    : 'text-white';
+  const textColor = luminance > 0.5 ? 'text-black' : 'text-white';
 
   return (
     <div className="container mx-auto">
       <div
         className={`${textColor} rounded-lg bg-transparent hover:bg-white transition-all m-2 p-2 flex gap-2 shadow-lg relative cursor-default select-none`}
-        style={{ backgroundColor: dominantColor ?? undefined, backgroundImage: linearGradient }}
+        style={{
+          backgroundColor: dominantColor ?? undefined,
+          backgroundImage: linearGradient,
+        }}
       >
         <div className="size-16 md:size-12 flex items-center justify-center self-center relative">
           <SpotifyLink type="album" id={track.album.id}>
@@ -137,13 +142,17 @@ export function NowPlaying({ activityStreamUrl }: { activityStreamUrl: string })
         <div className="flex-1 flex flex-col md:flex-row justify-center gap-2">
           <div className="flex flex-col justify-center md:min-w-32 md:max-w-64">
             <div className="select-text leading-tight line-clamp-1 font-bold">
-              <SpotifyLink type="track" id={track.id}>{track.name}</SpotifyLink>
+              <SpotifyLink type="track" id={track.id}>
+                {track.name}
+              </SpotifyLink>
             </div>
             <div className="text-sm select-text leading-tight line-clamp-1">
-              {track.artists.map(({id, name}, i) => (
+              {track.artists.map(({ id, name }, i) => (
                 <Fragment key={id}>
                   {i > 0 && ', '}
-                  <SpotifyLink type="artist" id={id}>{name}</SpotifyLink>
+                  <SpotifyLink type="artist" id={id}>
+                    {name}
+                  </SpotifyLink>
                 </Fragment>
               ))}
             </div>
@@ -151,7 +160,9 @@ export function NowPlaying({ activityStreamUrl }: { activityStreamUrl: string })
           <div className="flex-1 flex items-center gap-2 text-xs">
             <span className="w-10 text-center">{formatTime(progress)}</span>
             <ProgressBar progress={progress / track.duration_ms} />
-            <span className="w-10 text-center">{formatTime(track.duration_ms)}</span>
+            <span className="w-10 text-center">
+              {formatTime(track.duration_ms)}
+            </span>
           </div>
         </div>
       </div>
