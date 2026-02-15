@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Section } from "../components/Section";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGhost } from "@fortawesome/free-solid-svg-icons";
+import { Link } from '../components/Link';
+---
+<Layout title="Page Not Found - Philip Pryce">
+  <Section>
+    <div class="flex flex-col gap-4 my-10 min-h-full">
+      <div class="text-center">
+        <div class="size-40 md:size-54 flex items-center justify-center mx-auto">
+          <FontAwesomeIcon icon={faGhost} size="10x" className="text-blue-500 size-40" />
+        </div>
+        <h1 class="text-5xl font-bold text-center my-6">Page Not Found</h1>
+        <p class="text-center text-lg my-4">
+          I&#39;m not sure what you&#39;re looking for, but sadly it&#39;s not here!
+        </p>
+        <Link href="/">Go back home</Link>
+      </div>
+    </div>
+  </Section>
+</Layout>
