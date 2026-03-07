@@ -42,6 +42,8 @@
 	handle_path /spotify/* {
 		reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
 			flush_interval -1
+
+			header_down X-Robots-Tag "noindex"
 		}
 	}
 
