@@ -40,7 +40,7 @@
 
 	# serve Spotify now playing SSE from same domain
 	handle_path /spotify/* {
-		reverse_proxy {$SPOTIFY_ACTIVITY_SERVICE} {
+		reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
 			flush_interval -1
 		}
 	}
