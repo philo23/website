@@ -32,6 +32,12 @@
 	# serve from the 'dist' folder (Vite builds into the 'dist' folder)
 	root * {{.DIST_DIR}}
 
+	# Compression with more formats
+	encode {
+		gzip
+		zstd
+	}
+
 	# serve Spotify now playing SSE from same domain
 	handle_path /spotify/* {
 		reverse_proxy {$SPOTIFY_ACTIVITY_SERVICE} {
@@ -39,18 +45,14 @@
 		}
 	}
 
-	# Handle static files
-	file_server {
-		hide .git
-		hide .env*
-	}
+	handle {
+		# Try files with HTML extension and handle SPA routing
+		try_files {path} {path}.html {path}/index.html /index.html
 
-	# Compression with more formats
-	encode {
-		gzip
-		zstd
+		# Handle static files
+		file_server {
+			hide .git
+			hide .env*
+		}
 	}
-
-	# Try files with HTML extension and handle SPA routing
-	try_files {path} {path}.html {path}/index.html /index.html
 }
