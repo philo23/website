@@ -32,12 +32,12 @@
 	# serve from the 'dist' folder (Vite builds into the 'dist' folder)
 	root * {{.DIST_DIR}}
 
-  # serve Spotify now playing SSE from same domain
-  handle_path /spotify/* {
-    reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
-      flush_interval -1
-    }
-  }
+	# serve Spotify now playing SSE from same domain
+	handle_path /spotify/* {
+		reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
+			flush_interval -1
+		}
+	}
 
 	# Handle static files
 	file_server {
