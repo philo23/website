@@ -27,6 +27,13 @@
 		X-Content-Type-Options "nosniff"
 		# Remove Server header
 		-Server
+		# Add basic caching
+		Cache-Control "public, max-age=0, must-revalidate"
+	}
+
+	# Cache Astro built assets for longer
+	header /_astro/* {
+		Cache-Control "public, max-age=31536000, immutable"
 	}
 
 	# serve from the 'dist' folder (Vite builds into the 'dist' folder)
@@ -40,6 +47,8 @@
 
 	# Spotify Now Playing proxy
 	handle_path /spotify/* {
+		header Cache-Control "no-cache"
+
 		reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
 			flush_interval -1
 
