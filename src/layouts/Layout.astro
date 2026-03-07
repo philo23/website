@@ -59,7 +59,7 @@ const isHomepage = Astro.url.pathname === '/';
     </main>
 
     {SPOTIFY_ACTIVITY_STREAM && (
-      <NowPlaying client:idle transition:persist="now-playing" activityStreamUrl={SPOTIFY_ACTIVITY_STREAM} />
+      <NowPlaying client:only="react" transition:persist="now-playing" activityStreamUrl={SPOTIFY_ACTIVITY_STREAM} />
     )}
 
     <footer class="text-center bg-white text-slate-500 text-sm">
