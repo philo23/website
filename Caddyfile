@@ -51,12 +51,12 @@
 				# Intercept upstream 404 responses
 				handle_response @upstream_not_found {
 					# Fallback to static files
-					rewrite * {http.request.uri.path}
+					error 404
 				}
 			}
 		}
 
-		# Try files with HTML extension and handle SPA routing
+		# Try files with HTML extension and fallback to 404 if not found
 		try_files {path} {path}.html {path}/index.html =404
 
 		# Handle static files
@@ -67,8 +67,12 @@
 	}
 
 	handle_errors {
-		@notfound expression `{http.error.status_code} == 404`
+		@notfound expression `{err.status_code} == 404`
 		rewrite @notfound /404.html
-		file_server
+
+		file_server {
+			hide .git
+			hide .env*
+		}
 	}
 }
