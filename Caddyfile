@@ -38,28 +38,26 @@
 		zstd
 	}
 
-	route {
-		# serve Spotify now playing SSE from same domain
-		handle_path /spotify/* {
-			reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
-				flush_interval -1
+	# Spotify Now Playing proxy
+	handle_path /spotify/* {
+		reverse_proxy {env.SPOTIFY_ACTIVITY_SERVICE} {
+			flush_interval -1
 
-				header_down X-Robots-Tag "noindex"
+			header_down X-Robots-Tag "noindex"
 
-				@upstream_not_found status 404
+			@upstream_not_found status 404
 
-				# Intercept upstream 404 responses
-				handle_response @upstream_not_found {
-					# Fallback to static files
-					error 404
-				}
+			# Intercept upstream 404 responses
+			handle_response @upstream_not_found {
+				error 404
 			}
 		}
+	}
 
-		# Try files with HTML extension and fallback to 404 if not found
+	# Handle static files
+	handle {
 		try_files {path} {path}.html {path}/index.html =404
 
-		# Handle static files
 		file_server {
 			hide .git
 			hide .env*
