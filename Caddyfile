@@ -57,12 +57,18 @@
 		}
 
 		# Try files with HTML extension and handle SPA routing
-		try_files {path} {path}.html {path}/index.html /index.html
+		try_files {path} {path}.html {path}/index.html =404
 
 		# Handle static files
 		file_server {
 			hide .git
 			hide .env*
 		}
+	}
+
+	handle_errors {
+		@notfound expression `{http.error.status_code} == 404`
+		rewrite @notfound /404.html
+		file_server
 	}
 }
