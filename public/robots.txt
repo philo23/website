@@ -3,4 +3,7 @@
 User-agent: *
 Allow: /
 
+User-agent: *
+Disallow: /spotify/
+
 Sitemap: https://www.philippryce.dev/sitemap-index.xml
