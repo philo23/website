@@ -3,6 +3,7 @@
 import React, { Fragment, useEffect, useMemo } from 'react';
 import { useEventSource } from '../hooks/eventsource';
 import { useExtractColors } from 'react-extract-colors';
+import { Transition } from '@headlessui/react';
 
 function ProgressBar({ progress }: { progress: number }) {
   return (
@@ -93,6 +94,8 @@ export function NowPlaying({
   useEffect(() => addListener('track'), [addListener]);
   useEffect(() => addListener('progress'), [addListener]);
 
+  const show = readyState == 1 && !error && track !== null && progress !== null;
+
   const albumArt = track?.album.images[0].url ?? '';
 
   const { dominantColor, darkerColor } = useExtractColors(albumArt, {
@@ -106,66 +109,68 @@ export function NowPlaying({
     [dominantColor],
   );
 
-  if (readyState != 1 || error) {
-    return null;
-  }
-
-  if (!track || !progress) {
-    return null;
-  }
-
   const linearGradient = dominantColor
     ? `linear-gradient(to bottom, ${dominantColor}, ${darkerColor})`
     : undefined;
   const textColor = luminance > 0.5 ? 'text-black' : 'text-white';
 
   return (
-    <div className="container mx-auto">
-      <div
-        className={`${textColor} rounded-lg bg-transparent hover:bg-white transition-all m-2 p-2 flex gap-2 shadow-lg relative cursor-default select-none`}
-        style={{
-          backgroundColor: dominantColor ?? undefined,
-          backgroundImage: linearGradient,
-        }}
-      >
-        <div className="size-16 md:size-12 flex items-center justify-center self-center relative">
-          <SpotifyLink type="album" id={track.album.id}>
-            <img
-              src={albumArt}
-              alt={`Album art for ${track.album.name}`}
-              width={128}
-              height={128}
-              className="w-full rounded shadow ring-2 ring-current/20 hover:ring-current/40"
-            />
-          </SpotifyLink>
-        </div>
-        <div className="flex-1 flex flex-col md:flex-row justify-center gap-2">
-          <div className="flex flex-col justify-center md:min-w-32 md:max-w-64">
-            <div className="select-text leading-tight line-clamp-1 font-bold">
-              <SpotifyLink type="track" id={track.id}>
-                {track.name}
-              </SpotifyLink>
-            </div>
-            <div className="text-sm select-text leading-tight line-clamp-1">
-              {track.artists.map(({ id, name }, i) => (
-                <Fragment key={id}>
-                  {i > 0 && ', '}
-                  <SpotifyLink type="artist" id={id}>
-                    {name}
-                  </SpotifyLink>
-                </Fragment>
-              ))}
-            </div>
-          </div>
-          <div className="flex-1 flex items-center gap-2 text-xs">
-            <span className="w-10 text-center">{formatTime(progress)}</span>
-            <ProgressBar progress={progress / track.duration_ms} />
-            <span className="w-10 text-center">
-              {formatTime(track.duration_ms)}
-            </span>
-          </div>
+    <Transition show={show} appear>
+      <div className="container mx-auto origin-bottom transition ease-in-out data-closed:opacity-0 data-closed:scale-95 data-enter:duration-500 data-enter:data-closed:translate-y-3 data-leave:duration-500 data-leave:data-closed:translate-y-3">
+        <div
+          className={`${textColor} rounded-lg bg-transparent hover:bg-white transition-all m-2 p-2 flex gap-2 shadow-lg relative cursor-default select-none`}
+          style={{
+            backgroundColor: dominantColor ?? undefined,
+            backgroundImage: linearGradient,
+          }}
+        >
+          {show ? (
+            <>
+              <div className="size-16 md:size-12 flex items-center justify-center self-center relative">
+                <SpotifyLink type="album" id={track.album.id}>
+                  <img
+                    src={albumArt}
+                    alt={`Album art for ${track.album.name}`}
+                    width={128}
+                    height={128}
+                    className="w-full rounded shadow ring-2 ring-current/20 hover:ring-current/40"
+                  />
+                </SpotifyLink>
+              </div>
+              <div className="flex-1 flex flex-col md:flex-row justify-center gap-2">
+                <div className="flex flex-col justify-center md:min-w-32 md:max-w-64">
+                  <div className="select-text leading-tight line-clamp-1 font-bold">
+                    <SpotifyLink type="track" id={track.id}>
+                      {track.name}
+                    </SpotifyLink>
+                  </div>
+                  <div className="text-sm select-text leading-tight line-clamp-1">
+                    {track.artists.map(({ id, name }, i) => (
+                      <Fragment key={id}>
+                        {i > 0 && ', '}
+                        <SpotifyLink type="artist" id={id}>
+                          {name}
+                        </SpotifyLink>
+                      </Fragment>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex-1 flex items-center gap-2 text-xs">
+                  <span className="w-10 text-center">
+                    {formatTime(progress)}
+                  </span>
+                  <ProgressBar progress={progress / track.duration_ms} />
+                  <span className="w-10 text-center">
+                    {formatTime(track.duration_ms)}
+                  </span>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="h-16 md:h-12"></div>
+          )}
         </div>
       </div>
-    </div>
+    </Transition>
   );
 }
