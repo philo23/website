@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Fragment, useEffect, useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { useEventSource } from '../hooks/eventsource';
 import { useExtractColors } from 'react-extract-colors';
 import { Transition } from '@headlessui/react';
@@ -84,15 +84,11 @@ export function NowPlaying({
   const {
     readyState,
     error,
-    addListener,
     data: { track, progress },
   } = useEventSource(activityStreamUrl, {
     track: null as Track | null,
     progress: 0 as number | null,
   });
-
-  useEffect(() => addListener('track'), [addListener]);
-  useEffect(() => addListener('progress'), [addListener]);
 
   const show = readyState == 1 && !error && track !== null && progress !== null;
 

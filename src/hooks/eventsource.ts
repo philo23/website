@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useEventSource<Data extends object>(
-  url: string | URL,
+  url: string | URL | null,
   initialData: Data,
   options?: EventSourceInit,
 ) {
@@ -9,6 +9,10 @@ export function useEventSource<Data extends object>(
   const [error, setError] = useState<Event | null>(null);
   const [data, setData] = useState<Data>(initialData);
   const eventSource = useRef<EventSource | null>(null);
+
+  const dataKeys = Object.keys(initialData) as Array<
+    Extract<keyof Data, string>
+  >;
 
   const readyStateChange = useCallback(() => {
     setReadyState(eventSource.current?.readyState ?? 0);
@@ -40,14 +44,30 @@ export function useEventSource<Data extends object>(
   );
 
   useEffect(() => {
-    eventSource.current = new EventSource(url, options);
-    eventSource.current?.addEventListener('open', readyStateChange);
-    eventSource.current?.addEventListener('error', readyStateChange);
-    eventSource.current?.addEventListener('error', setError);
+    if (url) {
+      eventSource.current = new EventSource(url, options);
+      eventSource.current.addEventListener('open', readyStateChange);
+      eventSource.current.addEventListener('error', readyStateChange);
+      eventSource.current.addEventListener('error', setError);
 
-    return () => {
-      eventSource.current?.close();
-    };
+      const subscriptions: ReturnType<typeof addListener>[] = dataKeys.map(
+        (key) => addListener(key),
+      );
+
+      return () => {
+        subscriptions.forEach((unsubscribe) => unsubscribe());
+
+        eventSource.current?.close();
+        eventSource.current = null;
+
+        setReadyState(0);
+        setError(null);
+      };
+    } else {
+      eventSource.current = null;
+      setReadyState(0);
+      setError(null);
+    }
   }, [url, options, readyStateChange]);
 
   return {
