@@ -18,6 +18,11 @@ export function useEventSource<Data extends object>(
     setReadyState(eventSource.current?.readyState ?? 0);
   }, []);
 
+  const handleOpen = useCallback(() => {
+    readyStateChange();
+    setError(null);
+  }, [readyStateChange]);
+
   const addListener = useCallback(
     <EventName extends Extract<keyof Data, string>>(
       eventName: EventName,
@@ -46,7 +51,7 @@ export function useEventSource<Data extends object>(
   useEffect(() => {
     if (url) {
       eventSource.current = new EventSource(url, options);
-      eventSource.current.addEventListener('open', readyStateChange);
+      eventSource.current.addEventListener('open', handleOpen);
       eventSource.current.addEventListener('error', readyStateChange);
       eventSource.current.addEventListener('error', setError);
 
@@ -68,7 +73,7 @@ export function useEventSource<Data extends object>(
       setReadyState(0);
       setError(null);
     }
-  }, [url, options, readyStateChange]);
+  }, [url, options, readyStateChange, handleOpen]);
 
   return {
     readyState,
