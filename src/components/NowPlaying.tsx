@@ -4,6 +4,7 @@ import React, { Fragment, useMemo } from 'react';
 import { useEventSource } from '../hooks/eventsource';
 import { useExtractColors } from 'react-extract-colors';
 import { Transition } from '@headlessui/react';
+import { useVisibilityState } from '../hooks/visibilitystate.ts';
 
 function ProgressBar({ progress }: { progress: number }) {
   return (
@@ -81,11 +82,13 @@ export function NowPlaying({
 }: {
   activityStreamUrl: string;
 }) {
+  const visible = useVisibilityState();
+
   const {
     readyState,
     error,
     data: { track, progress },
-  } = useEventSource(activityStreamUrl, {
+  } = useEventSource(visible ? activityStreamUrl : null, {
     track: null as Track | null,
     progress: 0 as number | null,
   });
