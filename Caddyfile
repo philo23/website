@@ -19,7 +19,9 @@
 		format json
 	}
 
-	respond /health 200
+	handle /health {
+		respond 200
+	}
 
 	# Security headers
 	header {
