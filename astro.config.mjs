@@ -26,15 +26,13 @@ export default defineConfig({
   },
   trailingSlash: 'always',
   compressHTML: false,
-  experimental: {
-    fonts: [
-      {
-        provider: fontProviders.google(),
-        name: 'Plus Jakarta Sans',
-        cssVariable: '--font-custom',
-        weights: [300, 400, 700],
-        styles: ['normal', 'italic'],
-      },
-    ],
-  },
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Plus Jakarta Sans',
+      cssVariable: '--font-custom',
+      weights: [300, 400, 700],
+      styles: ['normal', 'italic'],
+    },
+  ],
 });
